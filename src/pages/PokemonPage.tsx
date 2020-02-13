@@ -41,7 +41,7 @@ const PokemonPage: FunctionComponent = () => {
     const [loading, setLoading] = useState(true)
     const { id = "" } = useParams();
     const { pokemonStore } = useStore();
-    
+    pokemonStore.addCurrentPokemon(id);
     useEffect(() => {
         const fetchPokemons = async () => {
             const data = await PS.getPokemon(id);
@@ -67,7 +67,7 @@ const PokemonPage: FunctionComponent = () => {
                 </div>
             </PokemonInformation>
             
-            {!false ?
+            {!pokemonStore.checkCurrentPokemonInLocal ?
                 <button onClick={() => pokemonStore.addPokemon(pokemon.name)}>add {pokemon.name}</button> :
                 <button onClick={() => pokemonStore.removePokemon(pokemon.name)}>remove {pokemon.name}</button>
             }
